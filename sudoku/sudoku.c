@@ -8,7 +8,7 @@
  *
  * Command-line options:
  * -4 | -6 | -9       Select grid size (default: 9x9)
- * -n <hidden>        Specify number of cells to hide (default: 40)
+ * -m <hidden>        Specify number of cells to mask (default: 40)
  * -s <seed>          Seed for random number generator (default: current time)
  * -a                 Show solved grid before masking
  */
@@ -86,16 +86,16 @@ int main(int argc, char *argv[]) {
   int opt;
   int hide = 40, cols = 9, size = 81, seed = time(0), answer = 0;
   int grid[81] = {0};
-  while ((opt = getopt(argc, argv, "n:s:a469")) != -1) {
+  while ((opt = getopt(argc, argv, "m:s:a469")) != -1) {
     switch (opt) {
       case 'a': answer = 1; break;           // Show answer before masking
       case 's': seed = atoi(optarg); break;  // Set PRNG seed
-      case 'n': hide = atoi(optarg); break;  // Number of cells to mask
+      case 'm': hide = atoi(optarg); break;  // Number of cells to mask
       case '4': cols = 4, size = 16; break;  // Use 4x4 grid
       case '6': cols = 6, size = 36; break;  // Use 6x6 grid
       case '9': cols = 9, size = 81; break;  // Use 9x9 grid
       default:
-        fprintf(stderr, "USAGE: %s [-4|-6|-9] [-a] [-n <hidden>] [-s <seed>]\n",
+        fprintf(stderr, "USAGE: %s [-4|-6|-9] [-a] [-m <masked>] [-s <seed>]\n",
                 argv[0]);
         exit(1);
     }
